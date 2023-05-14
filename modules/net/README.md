@@ -8,13 +8,13 @@ Libvirt Network - Create a libvirt network. This wont work if using libvirt user
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_libvirt"></a> [libvirt](#requirement\_libvirt) | 0.6.10 |
+| <a name="requirement_libvirt"></a> [libvirt](#requirement\_libvirt) | ~>0.7.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_libvirt"></a> [libvirt](#provider\_libvirt) | 0.6.10 |
+| <a name="provider_libvirt"></a> [libvirt](#provider\_libvirt) | ~>0.7.1 |
 
 ## Modules
 
@@ -24,7 +24,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [libvirt_network.net](https://registry.terraform.io/providers/dmacvicar/libvirt/0.6.10/docs/resources/network) | resource |
+| [libvirt_network.net](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/network) | resource |
 
 ## Inputs
 

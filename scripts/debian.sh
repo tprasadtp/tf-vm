@@ -4,19 +4,19 @@
 
 set -eo pipefail
 
-CLOUD_IMAGE_DOWNLOAD_PATH="${HOME}/Virtual/installers/cloudimages"
+CLOUD_IMAGE_DOWNLOAD_PATH="${REPO_ROOT:-.}/vendor/cloudimages"
 
-echo -e "\033[38;5;122m‣ Debian 10.x Buster\033[0m"
+echo -e "\033[38;5;122m‣ Debian 12.x Bookworm\033[0m"
 
 echo -e "- Ensure directories"
-mkdir -p "${CLOUD_IMAGE_DOWNLOAD_PATH}/debian-10"
+mkdir -p "${CLOUD_IMAGE_DOWNLOAD_PATH}/debian-12"
 
 (
-  cd "${CLOUD_IMAGE_DOWNLOAD_PATH}/debian-10"
+  cd "${CLOUD_IMAGE_DOWNLOAD_PATH}/debian-12"
   echo -e "- Download checksums"
-  curl -sSfLO https://cloud.debian.org/images/cloud/OpenStack/current-10/SHA256SUMS
+  curl -sSfLO https://cloud.debian.org/images/cloud/bookworm/daily/latest/SHA512SUMS
   echo -e "- Download image"
-  curl -fLO --progress-bar https://cloud.debian.org/images/cloud/OpenStack/current-10/debian-10-openstack-amd64.qcow2
+  curl -fLO --progress-bar https://cloud.debian.org/images/cloud/bookworm/daily/latest/debian-12-generic-amd64-daily.qcow2
   echo -e "- Verify integrity"
-  sha256sum -c --ignore-missing --strict SHA256SUMS
+  sha512sum -c --ignore-missing --strict SHA512SUMS
 )

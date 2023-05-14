@@ -4,7 +4,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_libvirt"></a> [libvirt](#requirement\_libvirt) | 0.6.10 |
+| <a name="requirement_libvirt"></a> [libvirt](#requirement\_libvirt) | ~>0.7.1 |
 
 ## Providers
 
@@ -20,10 +20,10 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [libvirt_cloudinit_disk.cloudinit](https://registry.terraform.io/providers/dmacvicar/libvirt/0.6.10/docs/resources/cloudinit_disk) | resource |
-| [libvirt_domain.domain](https://registry.terraform.io/providers/dmacvicar/libvirt/0.6.10/docs/resources/domain) | resource |
-| [libvirt_volume.base](https://registry.terraform.io/providers/dmacvicar/libvirt/0.6.10/docs/resources/volume) | resource |
-| [libvirt_volume.volume](https://registry.terraform.io/providers/dmacvicar/libvirt/0.6.10/docs/resources/volume) | resource |
+| [libvirt_cloudinit_disk.cloudinit](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/cloudinit_disk) | resource |
+| [libvirt_domain.domain](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/domain) | resource |
+| [libvirt_volume.base](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/volume) | resource |
+| [libvirt_volume.volume](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/volume) | resource |
 
 ## Inputs
 

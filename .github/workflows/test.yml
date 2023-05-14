@@ -1,5 +1,4 @@
-name: terraform
-# Triggers
+name: test
 on:
   push:
     branches:
@@ -8,26 +7,24 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Test Matrix
     strategy:
+      fail-fast: false
       matrix:
-        distro: ["ubuntu"]
-    # Override Provider configs on CI
+        distro: ["ubuntu", "debian"]
     env:
+      # Use system libvrt session.
       LIBVIRT_DEFAULT_URI: "qemu:///system"
-      # UNDOC:: Force use qemu on actions
+      # Use undocumented feature of libvirt plugin.
+      # to force use qemu on actions as nested virtualization is not available.
+      # https://github.com/dmacvicar/terraform-provider-libvirt/blob/12ed41017b5cf2181f39ddc366ab66ed45770cf7/libvirt/domain_def.go#L88
       TERRAFORM_LIBVIRT_TEST_DOMAIN_TYPE: "qemu"
-    # Steps
+      # Automate TF
+      TF_IN_AUTOMATION: "true"
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.8"
+      - uses: actions/checkout@v3
 
       - name: Install Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v2
 
       - name: Install Packages
         run: |
@@ -37,12 +34,14 @@ jobs:
             libvirt-dev \
             virt-manager \
             mkisofs \
+            xsltproc \
             python3-pip \
             python3-setuptools \
             python3-libvirt \
-            python3-lxml
+            python3-lxml \
+            ansible
 
-      - name: Permission fixer
+      - name: Disable libvirt security driver
         run: |
           echo 'security_driver="none"' | sudo tee /etc/libvirt/qemu.conf
           # Daemon
@@ -72,15 +71,6 @@ jobs:
           sudo virsh pool-define test/default-pool.xml
           sudo virsh pool-start default
 
-      - name: Install Python Dependencies
-        run: |
-          curl -sSfOL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py
-          python3 install-poetry.py -y
-          poetry --version
-          poetry install
-        env:
-          POETRY_VIRTUALENVS_IN_PROJECT: true
-
       - name: Fetch Images
         run: |
           ./scripts/${OS_FLAVOR}.sh
@@ -88,9 +78,6 @@ jobs:
           OS_FLAVOR: ${{ matrix.distro }}
 
       - name: Test
-        run: |
-          source .venv/bin/activate
-          sudo make test-${OS_FLAVOR}
+        run: sudo -E make test-${OS_FLAVOR}
         env:
           OS_FLAVOR: ${{ matrix.distro }}
-          HOME: /home/runner

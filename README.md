@@ -2,16 +2,17 @@
 
 This repository contains terraform modules to quickly create `libvirt` VMs from cloud images using [Terraform][terraform] with [libvirt][terraform-libvirt] provider.
 
-[![TFM](https://github.com/tprasadtp/tfm-libvirt/workflows/terraform/badge.svg)](https://github.com/tprasadtp/tfm-libvirt/actions?workflow=terraform)
+[![test](https://github.com/tprasadtp/tf-vm/actions/workflows/test.yml/badge.svg)](https://github.com/tprasadtp/tf-vm/actions/workflows/test.yml)
 ![Terraform-Version](https://img.shields.io/badge/terraform-1.0.x-623CE4?logo=terraform)
-![libvirt-Version](https://img.shields.io/badge/provider--libvirt-0.6.10-623CE4?logo=terraform&logoColor=white)
-![Analytics](https://ga-beacon.prasadt.com/UA-101760811-3/github/tfm-libvirt?pink&useReferer)
+![libvirt-Version](https://img.shields.io/badge/provider--libvirt-0.7.1-623CE4?logo=terraform&logoColor=white)
+[![license](https://img.shields.io/github/license/tprasadtp/tf-vm?logo=github&labelColor=3A3A3A)](https://github.com/tprasadtp/protonvpn-docker/blob/master/LICENSE)
+
 
 ## Requirements
 
 - KVM supported Linux Machine
 - `libvirtd` is up and running
-- [Terraform][terraform] and [terraform-libvirt][terraform-libvirt] plugins installed.
+- [Terraform][terraform].
 
 ## Usage
 

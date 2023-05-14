@@ -1,14 +1,14 @@
 module "vnet" {
-  source = "../../modules/net"
+  source = "../modules/net"
   name   = "test"
   domain = "test.kvm"
-  subnet = "192.168.127.0/24"
+  subnet = "192.168.128.0/24"
 }
 
 
 module "vm" {
-  source            = "../../modules/vm"
-  cloudimage        = pathexpand("/Virtual/installers/ubuntu-21.04-minimal-cloudimg-amd64.img")
+  source            = "../modules/vm"
+  cloudimage        = pathexpand("")
   cloudimage_format = "qcow2"
   name              = "test"
   network           = "test"
@@ -20,4 +20,9 @@ module "vm" {
 
 output "ips" {
   value = module.vm.ips
+}
+
+
+variable "cloudimage" {
+  description = "Path to cloud image"
 }

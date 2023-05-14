@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - name: Gather Net Facts
-      virt_net:
+      community.libvirt.virt_net:
         name: test
         command: info
       register: lv_netinfo
@@ -28,7 +28,7 @@
         - assert
         - net
     - name: Gather VM Info
-      virt:
+      community.libvirt.virt:
         command: info
       register: lv_viminfo
       tags:

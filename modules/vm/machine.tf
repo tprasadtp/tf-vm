@@ -32,7 +32,7 @@ resource "libvirt_domain" "domain" {
   arch   = var.arch
   vcpu   = var.vcpu
 
-  cpu = {
+  cpu {
     mode = var.vcpu_model_host == true ? "host-model" : null
   }
 
@@ -43,7 +43,6 @@ resource "libvirt_domain" "domain" {
   cloudinit = libvirt_cloudinit_disk.cloudinit.id
 
   network_interface {
-
     // Network must already exist
     network_name = var.network
     // Hostname is same as domain name

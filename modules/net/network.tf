@@ -31,7 +31,7 @@ resource "libvirt_network" "net" {
 
 
 output "id" {
-  value = libvirt_network.net.id
+  value       = libvirt_network.net.id
   description = "Network ID"
 }
 

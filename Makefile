@@ -8,14 +8,10 @@ help: ## This help message
 	@printf "%-20s %s\n" "-----" "-----"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-# Image download prefix
-CLOUD_IMAGE_DOWNLOAD_PATH ?= $(HOME)/Virtual/installers
-
 
 .PHONY: lint
 lint: fmt-lint validate ## Lint everything
 	@echo -e "\033[92m➜ $@ \033[0m"
-
 
 .PHONY: validate
 validate: ## Terraform Validate
@@ -26,7 +22,6 @@ validate: ## Terraform Validate
 	terraform validate $(REPO_ROOT)/modules/net
 	terraform init $(REPO_ROOT)/test/ubuntu
 	terraform validate $(REPO_ROOT)/test/ubuntu
-
 
 .PHONY: fmt
 fmt: ## Terraform fmt
@@ -41,9 +36,18 @@ fmt-lint: ## Terraform fmt lint
 .PHONY: test-ubuntu
 test-ubuntu: ## Test Ubuntu+cloud-init Tests
 	@echo -e "\033[92m➜ $@ \033[0m"
-	cd $(REPO_ROOT)/test/ubuntu && terraform init && terraform apply -auto-approve
-	ansible-playbook -i $(REPO_ROOT)/test/inventory.ini $(REPO_ROOT)/test/assert.yml
-	cd $(REPO_ROOT)/test/ubuntu && terraform destroy -auto-approve
+	cd test && terraform init
+	cd test && terraform -var="cloudimage=../vendor/cloudimages/debian-12/debian-12-generic-amd64-daily.qcow2" apply -auto-approve
+	ansible-playbook -i test/inventory.ini test/assert.yml
+	cd test && terraform destroy -auto-approve
+
+.PHONY: test-debian
+test-debian: ## Test Debian+cloud-init Tests
+	@echo -e "\033[92m➜ $@ \033[0m"
+	cd test && terraform init
+	cd test && terraform -var="cloudimage=../vendor/cloudimages/debian-12/debian-12-generic-amd64-daily.qcow2" apply -auto-approve
+	ansible-playbook -i test/inventory.ini test/assert.yml
+	cd test && terraform destroy -auto-approve
 
 .PHONY: docs
 docs: ## Generate module documentation
